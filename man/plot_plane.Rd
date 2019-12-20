@@ -10,6 +10,7 @@ plot_plane(
   labs = NULL,
   xname = "x",
   yname = "y",
+  tname = NULL,
   splitvar = NULL
 )
 }
@@ -24,8 +25,10 @@ plot_plane(
 
 \item{yname}{Column name of the y-axis}
 
+\item{tname}{Optional time column}
+
 \item{splitvar}{Facet splitting variable}
 }
 \description{
-Plots simulations in a phase plane.
+Plots simulations in a phase plane. If tname is provided, plots y against time.
 }

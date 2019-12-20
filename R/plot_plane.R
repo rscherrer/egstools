@@ -1,17 +1,18 @@
 #' Plot speciation phase plane
 #'
-#' Plots simulations in a phase plane.
+#' Plots simulations in a phase plane. If tname is provided, plots y against time.
 #'
 #' @param d Data frame with coordinates per timepoint per simulation
 #' @param colvar What variable to color according to
 #' @param labs Labels for each axis
 #' @param xname Column name of the x-axis
 #' @param yname Column name of the y-axis
+#' @param tname Optional time column
 #' @param splitvar Facet splitting variable
 #'
 #' @export
 
-plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", splitvar = NULL) {
+plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", tname = NULL, splitvar = NULL) {
 
   library(ggplot2)
 
@@ -23,14 +24,21 @@ plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", 
   colorset <- colorRampPalette(c("black", "lightgrey"))
   ncolors <- nlevels(d$col)
 
+  if (!is.null(tname)) xname <- tname
+
+  xlim <- c(-0.1, 1.1)
+  ylim <- c(-0.1, 1.1)
+
+  if (!is.null(tname)) xlim <- c(min(d[, tname]), max(d[, tname]))
+
   p <- ggplot(data = d, aes(x = get(xname), y = get(yname), color = col, alpha = id)) +
     geom_line() +
     theme_bw() +
     scale_color_manual(values = colorset(ncolors)) +
     scale_alpha_manual(values = runif(nlevels(d$id), 0.7, 1), guide = FALSE) +
     labs(color = colvar) +
-    xlim(c(-0.1, 1.1)) +
-    ylim(c(-0.1, 1.1)) +
+    xlim(xlim) +
+    ylim(ylim) +
     xlab(labs[1]) +
     ylab(labs[2])
 
