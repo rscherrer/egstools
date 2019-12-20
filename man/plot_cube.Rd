@@ -4,7 +4,7 @@
 \alias{plot_cube}
 \title{Plot cube}
 \usage{
-plot_cube(d, labs, xname = "x", yname = "y", zname = "z", ...)
+plot_cube(d, labs = NULL, xname = "x", yname = "y", zname = "z", ...)
 }
 \arguments{
 \item{d}{Data frame with three coordinates per timepoint per simulation}

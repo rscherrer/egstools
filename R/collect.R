@@ -13,6 +13,7 @@ collect <- function(dir = ".", xfile = "EI.dat", yfile = "SI.dat", zfile = "RI.d
 
   library(assertthat)
 
+  # List the simulation folders
   folders <- list.files(dir, full.names = TRUE)
   folders <- folders[grep("sim_", folders)]
 

@@ -4,14 +4,27 @@
 \alias{plot_plane}
 \title{Plot speciation phase plane}
 \usage{
-plot_plane(d, xname = "x", yname = "y")
+plot_plane(
+  d,
+  colvar = NULL,
+  labs = NULL,
+  xname = "x",
+  yname = "y",
+  splitvar = NULL
+)
 }
 \arguments{
 \item{d}{Data frame with coordinates per timepoint per simulation}
 
+\item{colvar}{What variable to color according to}
+
+\item{labs}{Labels for each axis}
+
 \item{xname}{Column name of the x-axis}
 
 \item{yname}{Column name of the y-axis}
+
+\item{splitvar}{Facet splitting variable}
 }
 \description{
 Plots simulations in a phase plane.
