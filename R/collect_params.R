@@ -2,12 +2,13 @@
 #'
 #' Gathers simulation parameters for multiple simulations.
 #'
+#' @param parnames What parameters to extract
 #' @param dir Where the simulation folders are
 #' @param parfile Name of the parameter log file
 #'
 #' @export
 
-collect_params <- function(dir = ".", parfile = "paramlog.txt") {
+collect_params <- function(parnames, dir = ".", parfile = "paramlog.txt") {
 
   # List the simulation folders
   folders <- list.files(dir, full.names = TRUE)
