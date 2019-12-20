@@ -7,10 +7,11 @@
 #' @param labs Labels for each axis
 #' @param xname Column name of the x-axis
 #' @param yname Column name of the y-axis
+#' @param splitvar Facet splitting variable
 #'
 #' @export
 
-plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y") {
+plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", splitvar = NULL) {
 
   library(ggplot2)
 
@@ -31,6 +32,8 @@ plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y") 
     ylim(c(-0.1, 1.1)) +
     xlab(labs[1]) +
     ylab(labs[2])
+
+  if (!is.null(splitvar)) p <- p + facet_wrap(~get(splitvar))
 
   return(p)
 

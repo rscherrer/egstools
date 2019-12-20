@@ -13,4 +13,6 @@ labs <- c("Ecological isolation", "Spatial isolation", "Reproductive isolation")
 cube <- plot_cube(d, labs, phi = 30, theta = 300)
 
 d$extra <- "A"
-plot_plane(d, labs = labs[1:2])
+plot_plane(d, labs = labs[1:2], splitvar = "extra")
+
+# Make it split by values of some parameter?
