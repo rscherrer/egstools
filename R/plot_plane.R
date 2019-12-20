@@ -9,10 +9,11 @@
 #' @param yname Column name of the y-axis
 #' @param tname Optional time column
 #' @param splitvar Facet splitting variable
+#' @param splitvar2 Second fact splitting variable
 #'
 #' @export
 
-plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", tname = NULL, splitvar = NULL) {
+plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", tname = NULL, splitvar = NULL, splitvar2 = NULL) {
 
   library(ggplot2)
 
@@ -21,7 +22,7 @@ plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", 
   d$col <- d$id
   if (!is.null(colvar)) d$col <- as.factor(d[, colvar])
 
-  colorset <- colorRampPalette(c("black", "lightgrey"))
+  colorset <- colorRampPalette(c("lightgrey", "black"))
   ncolors <- nlevels(d$col)
 
   if (!is.null(tname)) xname <- tname
@@ -30,6 +31,9 @@ plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", 
   ylim <- c(-0.1, 1.1)
 
   if (!is.null(tname)) xlim <- c(min(d[, tname]), max(d[, tname]))
+
+  if (!is.null(splitvar)) d[, splitvar] <- as.factor(paste(splitvar, '=', d[, splitvar]))
+  if (!is.null(splitvar2)) d[, splitvar2] <- as.factor(paste(splitvar2, '=', d[, splitvar2]))
 
   p <- ggplot(data = d, aes(x = get(xname), y = get(yname), color = col, alpha = id)) +
     geom_line() +
@@ -42,7 +46,13 @@ plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", 
     xlab(labs[1]) +
     ylab(labs[2])
 
-  if (!is.null(splitvar)) p <- p + facet_wrap(~get(splitvar))
+  if (!is.null(splitvar)) {
+    if (!is.null(splitvar2)) {
+      p <- p + facet_wrap(get(splitvar) ~ get(splitvar2))
+    } else {
+      p <- p + facet_wrap(~get(splitvar))
+    }
+  }
   if (is.null(colvar)) p <- p + theme(legend.position = "none")
 
   return(p)

@@ -15,7 +15,7 @@ plot_cube <- function(d, labs = NULL, xname = "x", yname = "y", zname = "z", ...
 
   library(plot3D)
 
-  xlim <- c(-0.1, 1.1)
+  xlim <- c(0.5, 1.1)
   ylim <- c(-0.1, 1.1)
   zlim <- c(-0.1, 1.1)
 
