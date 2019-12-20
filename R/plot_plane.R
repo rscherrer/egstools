@@ -23,10 +23,11 @@ plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", 
   colorset <- colorRampPalette(c("black", "lightgrey"))
   ncolors <- nlevels(d$col)
 
-  p <- ggplot(data = d, aes(x = get(xname), y = get(yname), color = col)) +
+  p <- ggplot(data = d, aes(x = get(xname), y = get(yname), color = col, alpha = id)) +
     geom_line() +
     theme_bw() +
     scale_color_manual(values = colorset(ncolors)) +
+    scale_alpha_manual(values = runif(nlevels(d$id), 0.7, 1), guide = FALSE) +
     labs(color = colvar) +
     xlim(c(-0.1, 1.1)) +
     ylim(c(-0.1, 1.1)) +

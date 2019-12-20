@@ -4,9 +4,11 @@
 \alias{collect_params}
 \title{Collect simulation parameters}
 \usage{
-collect_params(dir = ".", parfile = "paramlog.txt")
+collect_params(parnames, dir = ".", parfile = "paramlog.txt")
 }
 \arguments{
+\item{parnames}{What parameters to extract}
+
 \item{dir}{Where the simulation folders are}
 
 \item{parfile}{Name of the parameter log file}
