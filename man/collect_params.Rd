@@ -4,7 +4,7 @@
 \alias{collect_params}
 \title{Collect simulation parameters}
 \usage{
-collect_params(parnames, dir = ".", parfile = "paramlog.txt")
+collect_params(parnames, dir = ".", parfile = "paramlog.txt", extclude = TRUE)
 }
 \arguments{
 \item{parnames}{What parameters to extract}
@@ -12,6 +12,8 @@ collect_params(parnames, dir = ".", parfile = "paramlog.txt")
 \item{dir}{Where the simulation folders are}
 
 \item{parfile}{Name of the parameter log file}
+
+\item{extclude}{Whether to exclude simulations that went extinct during burnin}
 }
 \description{
 Gathers simulation parameters for multiple simulations.

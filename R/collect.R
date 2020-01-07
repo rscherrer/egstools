@@ -37,6 +37,7 @@ collect <- function(dir = ".", xfile = "EI.dat", yfile = "SI.dat", zfile = "RI.d
     return(data.frame(x, y, z, id))
 
   })
+
   d <- do.call(rbind, d)
   d$id <- as.factor(d$id)
 
