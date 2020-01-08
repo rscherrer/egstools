@@ -13,22 +13,18 @@ d <- collect()
 # d <- droplevels(subset(d, id %in% folders[ii]))
 # params <- droplevels(as.data.frame(params[sort(ii), ]))
 
-# Count the number of time steps
-ntimesteps <- table(d$id)
-stepsizes <- as.numeric(as.character(params$tsave))
-d$t <- do.call(c, mapply(function(n, stepsize) {
-  seq(0, n * stepsize - 1, stepsize)
-}, ntimesteps, stepsizes, SIMPLIFY = FALSE))
 
-# Append parameter values to the data
-d <- cbind(d, params[rep(seq_len(nrow(params)), each = ntimesteps), ])
-colnames(d) <- c("x", "y", "z", "id", "t", "hsymmetry", "ecosel")
-
-# Axis labels
-labs <- c("Ecological isolation", "Spatial isolation", "Reproductive isolation")
 
 # Phase plane
-plot_plane(d, labs = c("Time", "Ecological isolation"), yname = "x", tname = "t", splitvar = "hsymmetry", splitvar2 = "ecosel", colvar = "ecosel")
+plot_plane(
+  d,
+  labs = c("Time", "Ecological isolation"),
+  yname = "x",
+  tname = "t",
+  splitvar = "hsymmetry",
+  splitvar2 = "ecosel",
+  colvar = "ecosel"
+)
 
 
 

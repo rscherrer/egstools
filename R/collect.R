@@ -72,10 +72,11 @@ collect <- function(
 
     assert_that(all(length(x) == length(y), length(y) == length(z)))
 
+    t <- seq_along(x) - 1
     id <- rep(folder, length(x))
 
     # Put them in a data frame
-    d <- data.frame(x, y, z, id)
+    d <- data.frame(x, y, z, t, id)
 
     # Read parameters if necessary
     if (length(parnames) > 0) {
