@@ -18,7 +18,11 @@ plot_heatmap(
   colname = NULL,
   aggregate = "average",
   prob = 0.95,
-  threshold = 0.9
+  threshold = 0.9,
+  colors = NULL,
+  collab = NULL,
+  splitvar = NULL,
+  splitvar2 = NULL
 )
 }
 \arguments{
@@ -49,6 +53,14 @@ plot_heatmap(
 \item{prob}{The quantile used to aggregate replicates. Used only if the aggregation method is "quantile".}
 
 \item{threshold}{The threshold used if the aggregation method is "number".}
+
+\item{colors}{Optional low and high ends of the color gradient}
+
+\item{collab}{Optional color legend title}
+
+\item{splitvar}{Facet splitting variable}
+
+\item{splitvar2}{Second facet splitting variable}
 }
 \description{
 Compute a summary statistic for each simulation, then aggregates replicate simutions per combination of parameters and plot the result.la

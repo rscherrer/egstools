@@ -17,6 +17,7 @@
 #' @param prob The quantile used to aggregate replicates. Used only if the aggregation method is "quantile".
 #' @param threshold The threshold used if the aggregation method is "number".
 #' @param colors Optional low and high ends of the color gradient
+#' @param collab Optional color legend title
 #' @param splitvar Facet splitting variable
 #' @param splitvar2 Second facet splitting variable
 #'
@@ -38,6 +39,7 @@ plot_heatmap <- function(
   prob = 0.95,
   threshold = 0.9,
   colors = NULL,
+  collab = NULL,
   splitvar = NULL,
   splitvar2 = NULL
 ) {
@@ -69,7 +71,7 @@ plot_heatmap <- function(
     geom_tile()
 
   if (!is.null(colors)) p <- p + scale_color_gradient(low = colors[1], high = colors[2])
-
+  if (!is.null(collab)) p <- p + labs(fill = collab)
   if (!is.null(labs)) p <- p + xlab(labs[1]) + ylab(labs[2])
 
   if (!is.null(splitvar)) {
