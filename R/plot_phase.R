@@ -14,7 +14,7 @@
 #'
 #' @export
 
-plot_plane <- function(
+plot_phase <- function(
   d,
   xname = "x",
   yname = "y",
