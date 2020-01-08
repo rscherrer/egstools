@@ -5,7 +5,6 @@ setwd("/home/raphael/sim_epi")
 
 # Collect simulation data and parameters
 d <- collect()
-params <- collect_params(c("hsymmetry", "ecosel", "tsave"))
 
 # Downsample
 # folders <- unique(d$id)
@@ -30,6 +29,26 @@ labs <- c("Ecological isolation", "Spatial isolation", "Reproductive isolation")
 
 # Phase plane
 plot_plane(d, labs = c("Time", "Ecological isolation"), yname = "x", tname = "t", splitvar = "hsymmetry", splitvar2 = "ecosel", colvar = "ecosel")
+
+
+
+plot_heatmap(
+  d,
+  labs = c("Habitat symmetry", "Ecological selection"),
+  xname = "hsymmetry",
+  yname = "ecosel",
+  zname = "z",
+  tname = "t",
+  summary = c("value", "average", "threshold"),
+  tval = NULL,
+  trange = NULL,
+  theta = 0.9,
+  colname = NULL,
+  aggregate = "average",
+  prob = 0.95,
+  threshold = 0.9
+)
+
 
 
 
