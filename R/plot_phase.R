@@ -62,6 +62,7 @@ plot_phase <- function(
       p <- p + facet_wrap(~get(splitvar))
     }
   }
+
   if (is.null(colvar)) {
     p <- p + theme(legend.position = "none")
   } else {

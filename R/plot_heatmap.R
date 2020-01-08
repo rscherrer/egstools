@@ -16,6 +16,8 @@
 #' @param aggregate Method used to aggregate replicate simulations. Either of "average", "variance", "quantile" or "number" (the number of replicates above a certain threshold of the summary statistic).
 #' @param prob The quantile used to aggregate replicates. Used only if the aggregation method is "quantile".
 #' @param threshold The threshold used if the aggregation method is "number".
+#' @param splitvar Facet splitting variable
+#' @param splitvar2 Second facet splitting variable
 #'
 #' @export
 
@@ -33,7 +35,9 @@ plot_heatmap <- function(
   colname = NULL,
   aggregate = "average",
   prob = 0.95,
-  threshold = 0.9
+  threshold = 0.9,
+  splitvar = NULL,
+  splitvar2 = NULL
 ) {
 
   library(tidyverse)
@@ -63,6 +67,14 @@ plot_heatmap <- function(
     geom_tile()
 
   if (!is.null(labs)) p <- p + xlab(labs[1]) + ylab(labs[2])
+
+  if (!is.null(splitvar)) {
+    if (!is.null(splitvar2)) {
+      p <- p + facet_grid(get(splitvar) ~ get(splitvar2))
+    } else {
+      p <- p + facet_wrap(~get(splitvar))
+    }
+  }
 
   return(p)
 
