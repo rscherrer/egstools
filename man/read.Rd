@@ -22,3 +22,6 @@ read(filename)
 \description{
 Gathers simulation data through time from multiple simulations.
 }
+\note{
+The function will look for the "sim_" pattern to identify the folders containing simulation data. Make sure that the full path of the directory where the simulation folders are does not contain another "sim_" string, otherwise all files in the directory will be interpreted as simulation folders, and errors may occur.
+}

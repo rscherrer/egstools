@@ -70,7 +70,7 @@ plot_heatmap <- function(
   p <- ggplot(data = dred, aes(x = get(xname), y = get(yname), fill = Z)) +
     geom_tile()
 
-  if (!is.null(colors)) p <- p + scale_color_gradient(low = colors[1], high = colors[2])
+  if (!is.null(colors)) p <- p + scale_fill_gradient(low = colors[1], high = colors[2])
   if (!is.null(collab)) p <- p + labs(fill = collab)
   if (!is.null(labs)) p <- p + xlab(labs[1]) + ylab(labs[2])
 

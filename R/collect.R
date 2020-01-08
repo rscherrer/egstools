@@ -9,6 +9,8 @@
 #' @param parnames Optional names of the parameters to read and append
 #' @param parfile Name of the file where to read parameter values. Used only if parameter names are provided.
 #'
+#' @note The function will look for the "sim_" pattern to identify the folders containing simulation data. Make sure that the full path of the directory where the simulation folders are does not contain another "sim_" string, otherwise all files in the directory will be interpreted as simulation folders, and errors may occur.
+#'
 #' @export
 
 read <- function(filename) {
@@ -48,7 +50,7 @@ collect <- function(
   xfile = "EI.dat",
   yfile = "SI.dat",
   zfile = "RI.dat",
-  parnames = c("hsymmetry", "ecosel", "tsave"),
+  parnames = c("hsymmetry", "ecosel"),
   parfile = "paramlog.txt"
 ) {
 
@@ -64,6 +66,8 @@ collect <- function(
     xfile <- paste0(folder, '/', xfile)
     yfile <- paste0(folder, '/', yfile)
     zfile <- paste0(folder, '/', zfile)
+
+    print(xfile)
 
     # Read the three variables of interest
     x <- read(xfile)

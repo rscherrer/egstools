@@ -1,10 +1,14 @@
 rm(list = ls())
 
 library(egstools)
-setwd("/home/raphael/sim_epi")
+setwd("/home/raphael/sim_add")
 
 # Collect simulation data and parameters
 d <- egstools::collect()
+
+# If I want to merge data from different batches of simulations
+d1 <- egstools::collect(dir = "/home/raphael/sim_add")
+d2 <- egstools::collect(dir = "/home/raphael/sim_epi")
 
 # Downsample
 # folders <- unique(d$id)
@@ -37,13 +41,9 @@ plot_heatmap(
   zname = "z",
   tname = "t",
   summary = "value",
-  tval = NULL,
-  trange = NULL,
-  theta = 0.9,
-  colname = NULL,
   aggregate = "average",
-  prob = 0.95,
-  threshold = 0.9
+  collab = "Reproductive isolation",
+  colors = c("black", "yellow")
 )
 
 
