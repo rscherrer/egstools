@@ -9,7 +9,7 @@
 #' @param yname Column name of the y-axis
 #' @param tname Optional time column
 #' @param splitvar Facet splitting variable
-#' @param splitvar2 Second fact splitting variable
+#' @param splitvar2 Second facet splitting variable
 #'
 #' @export
 
@@ -48,7 +48,7 @@ plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", 
 
   if (!is.null(splitvar)) {
     if (!is.null(splitvar2)) {
-      p <- p + facet_wrap(get(splitvar) ~ get(splitvar2))
+      p <- p + facet_grid(get(splitvar) ~ get(splitvar2))
     } else {
       p <- p + facet_wrap(~get(splitvar))
     }

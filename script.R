@@ -18,12 +18,12 @@ d <- collect()
 # Phase plane
 plot_plane(
   d,
-  labs = c("Time", "Ecological isolation"),
   yname = "x",
   tname = "t",
-  splitvar = "hsymmetry",
-  splitvar2 = "ecosel",
-  colvar = "ecosel"
+  labs = c("Time", "Ecological isolation"),
+  colvar = "ecosel",
+  splitvar = "ecosel",
+  splitvar2 = "hsymmetry",
 )
 
 
