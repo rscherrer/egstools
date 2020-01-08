@@ -42,13 +42,12 @@ plot_heatmap(
   labs = c("Habitat symmetry", "Ecological selection"),
   xname = "hsymmetry",
   yname = "ecosel",
-  zname = "z",
+  zname = "y",
   tname = "t",
   summary = "value",
-  aggregate = "number",
-  threshold = 0.9,
-  collab = "Reproductive isolation",
-  colors = c("black", "yellow"),
+  aggregate = "average",
+  collab = "Spatial isolation",
+  colors = c("black", "pink"),
   splitvar = "epistasis"
 )
 

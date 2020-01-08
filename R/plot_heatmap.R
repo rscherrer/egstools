@@ -66,6 +66,9 @@ plot_heatmap <- function(
     dred <- aggregate_number(dsum, theta, xname, yname, keep = c(splitvar, splitvar2))
   } else stop("Wrong value for argument aggregate")
 
+  if (!is.null(splitvar)) dred[, splitvar] <- as.factor(paste(splitvar, "=", unlist(dred[, splitvar])))
+  if (!is.null(splitvar2)) dred[, splitvar2] <- as.factor(paste(splitvar2, "=", unlist(dred[, splitvar2])))
+
   # Make the heatmap
   p <- ggplot(data = dred, aes(x = get(xname), y = get(yname), fill = Z)) +
     geom_tile()
