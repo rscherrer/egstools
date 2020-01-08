@@ -36,13 +36,15 @@ plot_heatmap <- function(
   threshold = 0.9
 ) {
 
+  library(tidyverse)
+
   # Summarize simulations
   if (summary == "value") {
-    dsum <- summ_value(d, zname, tname, tval)
+    dsum <- summ_value(d, zname, tname, tval, keep = c(xname, yname))
   } else if (summary == "average") {
-    dsum <- summ_average(d, zname, tname, trange)
+    dsum <- summ_average(d, zname, tname, trange, keep = c(xname, yname))
   } else if (summary == "threshold") {
-    dsum <- summ_threshold(d, zname, tname, theta)
+    dsum <- summ_threshold(d, zname, tname, theta, keep = c(xname, yname))
   } else stop("Wrong value for argument summary")
 
   # Aggregate replicates
@@ -57,7 +59,7 @@ plot_heatmap <- function(
   } else stop("Wrong value for argument aggregate")
 
   # Make the heatmap
-  p <- ggplot(data = dred, aes(x = get(xname), y = get(yname), fill = get(zname))) +
+  p <- ggplot(data = dred, aes(x = get(xname), y = get(yname), fill = Z)) +
     geom_tile()
 
   if (!is.null(labs)) p <- p + xlab(labs[1]) + ylab(labs[2])

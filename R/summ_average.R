@@ -7,6 +7,7 @@
 #' @param tname Time column
 #' @param trange The two values between which to average (defaults to the entire range)
 #' @param colname Optional name of the summary column
+#' @param keep Optional names of columns to keep in the summary data frame
 #'
 #' @export
 
@@ -16,12 +17,21 @@ summ_average <- function(
   sname = "x",
   tname = "t",
   trange = NULL,
-  colname = NULL
+  colname = NULL,
+  keep = NULL
 ) {
 
   if (!is.null(trange)) {
     assert_that(length(trange) == 2)
     assert_that(trange[1] <= trange[2])
+  }
+
+  if (!is.null(keep)) {
+    meta <- lapply(keep, function(curr_column) {
+      with(d, tapply(get(curr_column), id, "[", 1))
+    })
+    meta <- as.data.frame(do.call(cbind, meta))
+    colnames(meta) <- keep
   }
 
   d <- d %>% group_by(id)
@@ -33,6 +43,7 @@ summ_average <- function(
   }
 
   if (!is.null(colname)) colnames(d)[colnames(d) == "summary"] <- colname
+  if (!is.null(keep)) d <- cbind(d, meta)
 
   return(d)
 

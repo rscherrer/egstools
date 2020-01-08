@@ -4,7 +4,7 @@ library(egstools)
 setwd("/home/raphael/sim_epi")
 
 # Collect simulation data and parameters
-d <- collect()
+d <- egstools::collect()
 
 # Downsample
 # folders <- unique(d$id)
@@ -22,6 +22,7 @@ plot_phase(
   tname = "t",
   labs = c("Time", "Ecological isolation"),
   colvar = "ecosel",
+  collab = "Selection",
   splitvar = "ecosel",
   splitvar2 = "hsymmetry"
 )
@@ -35,7 +36,7 @@ plot_heatmap(
   yname = "ecosel",
   zname = "z",
   tname = "t",
-  summary = c("value", "average", "threshold"),
+  summary = "value",
   tval = NULL,
   trange = NULL,
   theta = 0.9,

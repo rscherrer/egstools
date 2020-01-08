@@ -4,7 +4,14 @@
 \alias{summ_value}
 \title{Summarize simulations}
 \usage{
-summ_value(d, sname = "x", tname = "t", tval = NULL, colname = NULL)
+summ_value(
+  d,
+  sname = "x",
+  tname = "t",
+  tval = NULL,
+  colname = NULL,
+  keep = NULL
+)
 }
 \arguments{
 \item{d}{Data frame with coordinates per timepoint per simulation}
@@ -16,6 +23,8 @@ summ_value(d, sname = "x", tname = "t", tval = NULL, colname = NULL)
 \item{tval}{Timepoint to pick (defaults to last generation)}
 
 \item{colname}{Optional name of the summary column}
+
+\item{keep}{Optional names of columns to keep in the summary data frame}
 }
 \description{
 Summarize simulations down to the value of a statistic picked at a given time.

@@ -4,7 +4,14 @@
 \alias{summ_average}
 \title{Summarize simulations}
 \usage{
-summ_average(d, sname = "x", tname = "t", trange = NULL, colname = NULL)
+summ_average(
+  d,
+  sname = "x",
+  tname = "t",
+  trange = NULL,
+  colname = NULL,
+  keep = NULL
+)
 }
 \arguments{
 \item{d}{Data frame with coordinates per timepoint per simulation}
@@ -16,6 +23,8 @@ summ_average(d, sname = "x", tname = "t", trange = NULL, colname = NULL)
 \item{trange}{The two values between which to average (defaults to the entire range)}
 
 \item{colname}{Optional name of the summary column}
+
+\item{keep}{Optional names of columns to keep in the summary data frame}
 }
 \description{
 Summarize simulations down to the average value of a statistic between two time points.
