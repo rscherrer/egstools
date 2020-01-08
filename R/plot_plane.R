@@ -3,11 +3,11 @@
 #' Plots simulations in a phase plane. If tname is provided, plots y against time.
 #'
 #' @param d Data frame with coordinates per timepoint per simulation
-#' @param colvar What variable to color according to
-#' @param labs Labels for each axis
 #' @param xname Column name of the x-axis
 #' @param yname Column name of the y-axis
 #' @param tname Optional time column
+#' @param labs Labels for each axis
+#' @param colvar What variable to color according to
 #' @param splitvar Facet splitting variable
 #' @param splitvar2 Second facet splitting variable
 #'

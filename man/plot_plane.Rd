@@ -30,7 +30,7 @@ plot_plane(
 
 \item{splitvar}{Facet splitting variable}
 
-\item{splitvar2}{Second fact splitting variable}
+\item{splitvar2}{Second facet splitting variable}
 }
 \description{
 Plots simulations in a phase plane. If tname is provided, plots y against time.
