@@ -6,11 +6,12 @@
 \usage{
 plot_plane(
   d,
-  colvar = NULL,
-  labs = NULL,
   xname = "x",
   yname = "y",
   tname = NULL,
+  labs = NULL,
+  colvar = NULL,
+  collab = NULL,
   splitvar = NULL,
   splitvar2 = NULL
 )
@@ -18,15 +19,17 @@ plot_plane(
 \arguments{
 \item{d}{Data frame with coordinates per timepoint per simulation}
 
-\item{colvar}{What variable to color according to}
-
-\item{labs}{Labels for each axis}
-
 \item{xname}{Column name of the x-axis}
 
 \item{yname}{Column name of the y-axis}
 
 \item{tname}{Optional time column}
+
+\item{labs}{Labels for each axis}
+
+\item{colvar}{What variable to color according to}
+
+\item{collab}{Optional color legend title}
 
 \item{splitvar}{Facet splitting variable}
 

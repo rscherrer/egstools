@@ -8,12 +8,22 @@
 #' @param tname Optional time column
 #' @param labs Labels for each axis
 #' @param colvar What variable to color according to
+#' @param collab Optional color legend title
 #' @param splitvar Facet splitting variable
 #' @param splitvar2 Second facet splitting variable
 #'
 #' @export
 
-plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", tname = NULL, splitvar = NULL, splitvar2 = NULL) {
+plot_plane <- function(
+  d,
+  xname = "x",
+  yname = "y",
+  tname = NULL,
+  labs = NULL,
+  colvar = NULL,
+  collab = NULL,
+  splitvar = NULL,
+  splitvar2 = NULL) {
 
   library(ggplot2)
 
@@ -40,7 +50,6 @@ plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", 
     theme_bw() +
     scale_color_manual(values = colorset(ncolors)) +
     scale_alpha_manual(values = runif(nlevels(d$id), 0.7, 1), guide = FALSE) +
-    labs(color = colvar) +
     xlim(xlim) +
     ylim(ylim) +
     xlab(labs[1]) +
@@ -53,7 +62,12 @@ plot_plane <- function(d, colvar = NULL, labs = NULL, xname = "x", yname = "y", 
       p <- p + facet_wrap(~get(splitvar))
     }
   }
-  if (is.null(colvar)) p <- p + theme(legend.position = "none")
+  if (is.null(colvar)) {
+    p <- p + theme(legend.position = "none")
+  } else {
+    if (is.null(collab)) collab <- colvar
+    p <- p + labs(color = collab)
+  }
 
   return(p)
 
