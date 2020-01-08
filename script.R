@@ -33,6 +33,41 @@ plot_plane(d, labs = c("Time", "Ecological isolation"), yname = "x", tname = "t"
 
 
 
+# We want to summarize each simulation by one value
+
+
+
+summ_average(d, trange = c(200, 2000))
+summ_value(d, tval = 2000)
+
+s <- summ_threshold(d)
+head(cbind(s, params))
+
+# Now we want to make heatmaps from those reduced data sets
+# We need three dimensions: x, y and z
+# And we need to choose a function to aggregate replicates
+
+# The agggregation function could be:
+# Average across replicates
+# Variance across replicates
+# Some quantile across replicates
+# The number of replicates above a certain threshold
+
+# Summarized data
+dsum <- summ_value(d, sname = "z", tval = 19900)
+dsum <- cbind(dsum, params)
+
+# Aggregate across replicates
+dred <- aggregate_number(dsum)
+
+
+
+# Plot the heatmap
+p <- ggplot(data = dred, aes(x = hsymmetry, y = ecosel, fill = Z)) +
+  geom_tile() +
+  xlab(xlab) +
+  ylab(ylab)
+p
 
 # Speciation cube
 #cube <- plot_cube(d, labs, phi = 30, theta = 300)
@@ -51,5 +86,5 @@ plot_plane(d, labs = c("Time", "Ecological isolation"), yname = "x", tname = "t"
 # Then aggregate for certain parameter values
 # Then plot
 
-ds <- summarize(d)s
+ds <- summarize(d)
 plot_heatmap(ds, labs = c("Habitat symmetry", "Disruptive selection"), zname = "z", xname = "hsymmetry", yname = "ecosel")
