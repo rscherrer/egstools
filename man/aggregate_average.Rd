@@ -9,7 +9,8 @@ aggregate_average(
   xname = "hsymmetry",
   yname = "ecosel",
   zname = "summary",
-  colname = NULL
+  colname = NULL,
+  keep = NULL
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ aggregate_average(
 \item{zname}{Column name of the statistic to aggregate}
 
 \item{colname}{Optional name of the aggregated statistic column}
+
+\item{keep}{Optional names of columns to keep in the aggregated data frame}
 }
 \description{
 Aggregate a statistic by averaging it over replicates within values of one or two parameters.

@@ -23,5 +23,5 @@ read(filename)
 Gathers simulation data through time from multiple simulations.
 }
 \note{
-The function will look for the "sim_" pattern to identify the folders containing simulation data. Make sure that the full path of the directory where the simulation folders are does not contain another "sim_" string, otherwise all files in the directory will be interpreted as simulation folders, and errors may occur.
+It is important to not have the string "sim_" in the path leading to where the simulation folders are. This is because the function to collect data looks for simulation folders using the pattern sim_ in the full path of those folders. If sim_ appears somewhere else in the path than in the name of the simulation folders, all files in the directory containing the simulation folders will be interpreted as simulation folders, even if they are not, e.g. python scripts.
 }

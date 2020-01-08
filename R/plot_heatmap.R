@@ -48,22 +48,22 @@ plot_heatmap <- function(
 
   # Summarize simulations
   if (summary == "value") {
-    dsum <- summ_value(d, zname, tname, tval, keep = c(xname, yname))
+    dsum <- summ_value(d, zname, tname, tval, keep = c(xname, yname, splitvar, splitvar2))
   } else if (summary == "average") {
-    dsum <- summ_average(d, zname, tname, trange, keep = c(xname, yname))
+    dsum <- summ_average(d, zname, tname, trange, keep = c(xname, yname, splitvar, splitvar2))
   } else if (summary == "threshold") {
-    dsum <- summ_threshold(d, zname, tname, theta, keep = c(xname, yname))
+    dsum <- summ_threshold(d, zname, tname, theta, keep = c(xname, yname, splitvar, splitvar2))
   } else stop("Wrong value for argument summary")
 
   # Aggregate replicates
   if (aggregate == "average") {
-    dred <- aggregate_average(dsum, xname, yname)
+    dred <- aggregate_average(dsum, xname, yname, keep = c(splitvar, splitvar2))
   } else if (aggregate == "variance") {
-    dred <- aggregate_variance(dsum, xname, yname)
+    dred <- aggregate_variance(dsum, xname, yname, keep = c(splitvar, splitvar2))
   } else if (aggregate == "quantile") {
-    dred <- aggregate_quantile(dsum, prob, xname, yname)
+    dred <- aggregate_quantile(dsum, prob, xname, yname, keep = c(splitvar, splitvar2))
   } else if (aggregate == "number") {
-    dred <- aggregate_number(dsum, theta, xname, yname)
+    dred <- aggregate_number(dsum, theta, xname, yname, keep = c(splitvar, splitvar2))
   } else stop("Wrong value for argument aggregate")
 
   # Make the heatmap

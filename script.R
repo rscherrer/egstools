@@ -1,14 +1,19 @@
 rm(list = ls())
 
 library(egstools)
-setwd("/home/raphael/sim_add")
 
 # Collect simulation data and parameters
-d <- egstools::collect()
 
 # If I want to merge data from different batches of simulations
-d1 <- egstools::collect(dir = "/home/raphael/sim_add")
-d2 <- egstools::collect(dir = "/home/raphael/sim_epi")
+d1 <- egstools::collect(dir = "/home/raphael/simulations_add")
+d2 <- egstools::collect(dir = "/home/raphael/simulations_epi")
+
+d1$epistasis <- 0
+d2$epistasis <- 1
+
+# Merge the data frames
+d <- rbind(d1, d2)
+
 
 # Downsample
 # folders <- unique(d$id)
@@ -25,12 +30,11 @@ plot_phase(
   yname = "x",
   tname = "t",
   labs = c("Time", "Ecological isolation"),
-  colvar = "ecosel",
-  collab = "Selection",
+  colvar = "epistasis",
+  collab = "Epistasis",
   splitvar = "ecosel",
   splitvar2 = "hsymmetry"
 )
-
 
 
 plot_heatmap(
@@ -41,9 +45,11 @@ plot_heatmap(
   zname = "z",
   tname = "t",
   summary = "value",
-  aggregate = "average",
+  aggregate = "number",
+  threshold = 0.9,
   collab = "Reproductive isolation",
-  colors = c("black", "yellow")
+  colors = c("black", "yellow"),
+  splitvar = "epistasis"
 )
 
 

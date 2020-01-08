@@ -10,7 +10,8 @@ aggregate_number(
   xname = "hsymmetry",
   yname = "ecosel",
   zname = "summary",
-  colname = NULL
+  colname = NULL,
+  keep = NULL
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ aggregate_number(
 \item{zname}{Column name of the statistic to aggregate}
 
 \item{colname}{Optional name of the aggregated statistic column}
+
+\item{keep}{Optional names of columns to keep in the aggregated data frame}
 }
 \description{
 Aggregate a statistic over replicates by counting how many have values above a threshold, within values of one or two parameters.
