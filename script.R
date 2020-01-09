@@ -5,7 +5,7 @@ library(egstools)
 # Collect simulation data and parameters
 
 # If I want to merge data from different batches of simulations
-d1 <- egstools::collect(dir = "/home/raphael/simulations_add")
+d1 <- collect(dir = "/home/raphael/simulations_add")
 d2 <- egstools::collect(dir = "/home/raphael/simulations_epi")
 
 d1$epistasis <- 0
@@ -14,7 +14,6 @@ d2$epistasis <- 1
 # Merge the data frames
 d <- rbind(d1, d2)
 
-
 # Downsample
 # folders <- unique(d$id)
 # nsim <- length(folders)
@@ -22,12 +21,10 @@ d <- rbind(d1, d2)
 # d <- droplevels(subset(d, id %in% folders[ii]))
 # params <- droplevels(as.data.frame(params[sort(ii), ]))
 
-
-
 # Phase plane
 plot_phase(
   d,
-  yname = "x",
+  yname = "EI",
   tname = "t",
   labs = c("Time", "Ecological isolation"),
   colvar = "epistasis",
@@ -36,18 +33,17 @@ plot_phase(
   splitvar2 = "hsymmetry"
 )
 
-
 plot_heatmap(
   d,
   labs = c("Habitat symmetry", "Ecological selection"),
   xname = "hsymmetry",
   yname = "ecosel",
-  zname = "y",
+  zname = "RI",
   tname = "t",
   summary = "value",
   aggregate = "average",
-  collab = "Spatial isolation",
-  colors = c("black", "pink"),
+  collab = "Reproductive isolation",
+  colors = c("black", "yellow"),
   splitvar = "epistasis"
 )
 
