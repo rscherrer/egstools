@@ -11,6 +11,8 @@
 #' @param collab Optional color legend title
 #' @param splitvar Facet splitting variable
 #' @param splitvar2 Second facet splitting variable
+#' @param xlim Boundaries of the x-axis
+#' @param ylim Boundaries of the y-axis
 #'
 #' @export
 
@@ -23,7 +25,10 @@ plot_phase <- function(
   colvar = NULL,
   collab = NULL,
   splitvar = NULL,
-  splitvar2 = NULL) {
+  splitvar2 = NULL,
+  xlim = NULL,
+  ylim = NULL
+) {
 
   library(ggplot2)
 
@@ -37,9 +42,6 @@ plot_phase <- function(
 
   if (!is.null(tname)) xname <- tname
 
-  xlim <- c(-0.1, 1.1)
-  ylim <- c(-0.1, 1.1)
-
   if (!is.null(tname)) xlim <- c(min(d[, tname]), max(d[, tname]))
 
   if (!is.null(splitvar)) d[, splitvar] <- as.factor(paste(splitvar, '=', d[, splitvar]))
@@ -50,10 +52,11 @@ plot_phase <- function(
     theme_bw() +
     scale_color_manual(values = colorset(ncolors)) +
     scale_alpha_manual(values = runif(nlevels(d$id), 0.7, 1), guide = FALSE) +
-    xlim(xlim) +
-    ylim(ylim) +
     xlab(labs[1]) +
     ylab(labs[2])
+
+  if (!is.null(xlim)) p <- p + xlim(xlim)
+  if (!is.null(ylim)) p <- p + ylim(ylim)
 
   if (!is.null(splitvar)) {
     if (!is.null(splitvar2)) {

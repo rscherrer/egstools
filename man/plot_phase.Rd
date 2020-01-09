@@ -13,7 +13,9 @@ plot_phase(
   colvar = NULL,
   collab = NULL,
   splitvar = NULL,
-  splitvar2 = NULL
+  splitvar2 = NULL,
+  xlim = NULL,
+  ylim = NULL
 )
 }
 \arguments{
@@ -34,6 +36,10 @@ plot_phase(
 \item{splitvar}{Facet splitting variable}
 
 \item{splitvar2}{Second facet splitting variable}
+
+\item{xlim}{Boundaries of the x-axis}
+
+\item{ylim}{Boundaries of the y-axis}
 }
 \description{
 Plots simulations in a phase plane. If tname is provided, plots y against time.
