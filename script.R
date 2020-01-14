@@ -5,34 +5,59 @@ library(egstools)
 # Collect simulation data and parameters
 
 # If I want to merge data from different batches of simulations
-d1 <- egstools::collect(
-  dir = "/home/raphael/simulations_add",
-  files = c("EI.dat", "varA_x.dat")
-)
-d2 <- egstools::collect(
-  dir = "/home/raphael/simulations_epi",
-  files = c("EI.dat", "varA_x.dat")
+dirs <- paste0("/home/raphael/simulations_", c("additive", "epistatic"), "_large")
+files <- c(
+  "EI.dat",
+  "SI.dat",
+  "RI.dat",
+  "varA_x.dat",
+  "varI_x.dat",
+  "varN_x.dat",
+  "Fst_x.dat",
+  "Fst_y.dat",
+  "Fst_z.dat"
 )
 
-d1$epistasis <- 0
-d2$epistasis <- 1
+d <- lapply(dirs, function(curr_dir) {
+  egstools::collect(
+    dir = curr_dir,
+    files = files
+  )
+})
 
-# Merge the data frames
-d <- rbind(d1, d2)
+mrep <- function(vecx, vecy) {
+
+  do.call(c, mapply(function(x, y) rep(x, y), vecx, vecy, SIMPLIFY = FALSE))
+
+}
+
+epistasis <- mrep(c(0, 1), sapply(d, nrow))
+d <- do.call(rbind, d)
+d$epistasis <- epistasis
+
+# Or just additive simulations
+# d <- egstools::collect(dir = "/home/raphael/simulations_additive_large", files = files)
 
 # Phase plane
-plot_phase(
+p <- plot_phase(
   d,
-  yname = "varA_x",
-  tname = "t",
-  labs = c("Time", "Ecological isolation"),
+  xname = "EI",
+  yname = "RI",
+  #tname = "t",
+  labs = c("Ecological divergence", "Reproductive isolation"),
   colvar = "epistasis",
   collab = "Epistasis",
   splitvar = "ecosel",
-  splitvar2 = "hsymmetry"
+  splitvar2 = "hsymmetry",
+  xline = TRUE,
+  yline = TRUE
 )
 
-plot_heatmap(
+p
+ggsave("ERI.pdf", p)
+
+# Heatmap
+h <- plot_heatmap(
   d,
   labs = c("Habitat symmetry", "Ecological selection"),
   xname = "hsymmetry",
@@ -42,9 +67,15 @@ plot_heatmap(
   summary = "value",
   aggregate = "average",
   collab = "Reproductive isolation",
-  colors = c("black", "yellow"),
+  colors = c("black", "lightblue"),
   splitvar = "epistasis"
 )
+
+ggsave("heatmap_RI.pdf", h)
+
+
+# Display a gene network?
+#
 
 
 ############

@@ -13,6 +13,8 @@
 #' @param splitvar2 Second facet splitting variable
 #' @param xlim Boundaries of the x-axis
 #' @param ylim Boundaries of the y-axis
+#' @param xline Whether to add a vertical line at the initial point
+#' @param yline Whether to add a horizontal line at the initial point
 #'
 #' @export
 
@@ -27,7 +29,9 @@ plot_phase <- function(
   splitvar = NULL,
   splitvar2 = NULL,
   xlim = NULL,
-  ylim = NULL
+  ylim = NULL,
+  xline = FALSE,
+  yline = FALSE
 ) {
 
   library(ggplot2)
@@ -44,9 +48,7 @@ plot_phase <- function(
 
   if (!is.null(tname)) xlim <- c(min(d[, tname]), max(d[, tname]))
 
-  if (!is.null(splitvar)) d[, splitvar] <- as.factor(paste(splitvar, '=', d[, splitvar]))
-  if (!is.null(splitvar2)) d[, splitvar2] <- as.factor(paste(splitvar2, '=', d[, splitvar2]))
-
+  # Make the plot
   p <- ggplot(data = d, aes(x = get(xname), y = get(yname), color = col, alpha = id)) +
     geom_line() +
     theme_bw() +
@@ -71,6 +73,33 @@ plot_phase <- function(
   } else {
     if (is.null(collab)) collab <- colvar
     p <- p + labs(color = collab)
+  }
+
+  # Add lines at initial values
+  lines <- c(xline, yline)
+  for (i in seq_along(lines)) {
+
+    if (lines[i]) {
+
+      axis <- c(xname, yname)[i]
+      dl <- d
+      dl <- dl %>% group_by(id)
+      if (!is.null(splitvar)) dl <- dl %>% group_by(get(splitvar), add = TRUE)
+      if (!is.null(splitvar2)) dl <- dl %>% group_by(get(splitvar2), add = TRUE)
+      dl <- dl %>% summarize(first = get(axis)[t == min(t)])
+      dl <- dl %>% ungroup()
+      colnames(dl)[grep("get\\(splitvar\\)", colnames(dl))] <- splitvar
+      colnames(dl)[grep("get\\(splitvar2\\)", colnames(dl))] <- splitvar2
+      if (!is.null(splitvar)) dl <- dl %>% group_by(get(splitvar))
+      if (!is.null(splitvar2)) dl <- dl %>% group_by(get(splitvar2), add = TRUE)
+      dl <- dl %>% summarize(first = mean(first))
+      colnames(dl)[grep("get\\(splitvar\\)", colnames(dl))] <- splitvar
+      colnames(dl)[grep("get\\(splitvar2\\)", colnames(dl))] <- splitvar2
+
+      if (i == 1) p <- p + geom_vline(dl, mapping = aes(xintercept = first), lty = 2)
+      if (i == 2) p <- p + geom_hline(dl, mapping = aes(yintercept = first), lty = 2)
+
+    }
   }
 
   return(p)

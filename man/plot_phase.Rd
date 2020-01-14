@@ -15,7 +15,9 @@ plot_phase(
   splitvar = NULL,
   splitvar2 = NULL,
   xlim = NULL,
-  ylim = NULL
+  ylim = NULL,
+  xline = FALSE,
+  yline = FALSE
 )
 }
 \arguments{
@@ -40,6 +42,10 @@ plot_phase(
 \item{xlim}{Boundaries of the x-axis}
 
 \item{ylim}{Boundaries of the y-axis}
+
+\item{xline}{Whether to add a vertical line at the initial point}
+
+\item{yline}{Whether to add a horizontal line at the initial point}
 }
 \description{
 Plots simulations in a phase plane. If tname is provided, plots y against time.
