@@ -1,42 +1,46 @@
-rm(list = ls())
 
-library(egstools)
 
-# Collect simulation data and parameters
 
-# If I want to merge data from different batches of simulations
-dirs <- paste0("/home/raphael/simulations_", c("additive", "epistatic"), "_large")
-files <- c(
-  "EI.dat",
-  "SI.dat",
-  "RI.dat",
-  "varA_x.dat",
-  "varI_x.dat",
-  "varN_x.dat",
-  "Fst_x.dat",
-  "Fst_y.dat",
-  "Fst_z.dat"
+
+
+
+
+
+#disassortment <- mrep(c(1,-1), sapply(d, nrow))
+#d <- do.call(rbind, d)
+#d$disassortment <- as.factor(disassortment)
+
+d2 <- d %>%
+  filter(disassortment == 1) %>%
+  group_by(id) %>%
+  summarize(RI = RI[n()])
+
+length(which(d2$RI < -0.2))
+hist(d2$RI)
+
+d <- egstools::collect(
+  dir = "/media/raphael/bigass/simulations_epistatic_large",
+  files = files
 )
 
-d <- lapply(dirs, function(curr_dir) {
-  egstools::collect(
-    dir = curr_dir,
-    files = files
+d2 <- d %>%
+  group_by(id) %>%
+  summarize(RI = RI[n()])
+folders <- d2$id[which(d2$RI > 0.5)]
+
+folders <- list.files("/media/raphael/bigass/simulations_disassortative_longrun", full.names = TRUE)
+folders <- folders[grep("sim_", folders)]
+
+lapply(seq_len(33), function(i) {
+
+  folder <- folders[i]
+
+  file.copy(
+    paste0(folder, "/architecture.txt"),
+    paste0("/media/raphael/bigass/architectures_assortative/architecture_", i, ".txt")
   )
+
 })
-
-mrep <- function(vecx, vecy) {
-
-  do.call(c, mapply(function(x, y) rep(x, y), vecx, vecy, SIMPLIFY = FALSE))
-
-}
-
-epistasis <- mrep(c(0, 1), sapply(d, nrow))
-d <- do.call(rbind, d)
-d$epistasis <- epistasis
-
-# Or just additive simulations
-# d <- egstools::collect(dir = "/home/raphael/simulations_additive_large", files = files)
 
 # Phase plane
 p <- plot_phase(
@@ -45,16 +49,15 @@ p <- plot_phase(
   yname = "RI",
   #tname = "t",
   labs = c("Ecological divergence", "Reproductive isolation"),
-  colvar = "epistasis",
-  collab = "Epistasis",
+  #colvar = "disassortment",
+  #collab = "Disassortative"
   splitvar = "ecosel",
-  splitvar2 = "hsymmetry",
-  xline = TRUE,
-  yline = TRUE
+  splitvar2 = "hsymmetry"
 )
 
 p
-ggsave("ERI.pdf", p)
+
+ggsave("RSI.pdf", p)
 
 # Heatmap
 h <- plot_heatmap(
@@ -62,21 +65,20 @@ h <- plot_heatmap(
   labs = c("Habitat symmetry", "Ecological selection"),
   xname = "hsymmetry",
   yname = "ecosel",
-  zname = "RI",
+  zname = "EI",
   tname = "t",
   summary = "value",
-  aggregate = "average",
-  collab = "Reproductive isolation",
-  colors = c("black", "lightblue"),
+  aggregate = "number",
+  threshold = 0.9,
+  collab = "Ecological divergence",
+  colors = c("black", "lightgreen"),
   splitvar = "epistasis"
 )
 
-ggsave("heatmap_RI.pdf", h)
+h
+ggsave("heatmap_EI_lowdispersal.pdf", h)
 
-
-# Display a gene network?
-#
-
+############
 
 ############
 
