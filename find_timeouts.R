@@ -4,7 +4,7 @@
 
 rm(list = ls())
 
-dir <- "/media/raphael/bigass/simulations_additive_large_unbiased"
+dir <- "/media/raphael/bigass/simulations_epistatic_large_unbiased"
 files <- c("EI.dat", "SI.dat", "RI.dat")
 
 setwd(dir)

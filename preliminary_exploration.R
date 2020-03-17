@@ -29,7 +29,7 @@ library(egstools)
 mrep <- function(vecx, vecy) do.call(c, mapply(function(x, y) rep(x, y), vecx, vecy, SIMPLIFY = FALSE))
 
 # Change here
-tag <- "_large_lowdispersal_biased" # large, large_lowdisp, small, large_unbiased
+tag <- "_large_unbiased" # large, large_lowdisp, small, large_unbiased
 
 #### Extract the data of interest ####
 
@@ -38,22 +38,22 @@ sourcedir <- "/media/raphael/bigass/simulations_"
 files <- c(
   "EI.dat",
   "SI.dat",
-  "RI.dat",
-  "varA_x.dat",
-  "varA_y.dat",
-  "varA_z.dat",
-  "varN_x.dat",
-  "varN_y.dat",
-  "varN_z.dat",
-  "Fst_x.dat",
-  "Fst_y.dat",
-  "Fst_z.dat",
-  "Qst_x.dat",
-  "Qst_y.dat",
-  "Qst_z.dat",
-  "Cst_x.dat",
-  "Cst_y.dat",
-  "Cst_z.dat"
+  "RI.dat"
+  # "varA_x.dat",
+  # "varA_y.dat",
+  # "varA_z.dat",
+  # "varN_x.dat",
+  # "varN_y.dat",
+  # "varN_z.dat",
+  # "Fst_x.dat",
+  # "Fst_y.dat",
+  # "Fst_z.dat",
+  # "Qst_x.dat",
+  # "Qst_y.dat",
+  # "Qst_z.dat",
+  # "Cst_x.dat",
+  # "Cst_y.dat",
+  # "Cst_z.dat"
 )
 
 dirs <- paste0(sourcedir, gentypes, tag)
@@ -62,12 +62,13 @@ epistasis <- mrep(c(0, 1), sapply(d, nrow))
 d <- do.call(rbind, d)
 d$epistasis <- epistasis
 
+
 #### Heatmaps of speciation outcome acoss parameter space ####
 
 collabs <- c("Number of ecological\ndivergence events", "Number of reproductive\nisolation events", "Mean ecological\ndivergence", "Mean reproductive\nisolation")
 colors <- c("lightgreen", "lightblue", "lightgreen", "lightblue")
 znames <- c("EI", "RI", "EI", "RI")
-aggregates <- c("number", "average", "number", "average")
+aggregates <- c("number", "number", "average", "average")
 plotnames <- c("heatmap_number_EI", "heatmap_number_RI", "heatmap_mean_EI", "heatmap_mean_RI")
 plotnames <- paste0(plotnames, tag, ".pdf")
 

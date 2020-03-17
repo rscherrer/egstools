@@ -16,12 +16,12 @@ d <- egstools::collect(dir, files)
 
 plot_phase(
   d,
-  xname = "RI",
-  yname = "SI",
-  #tname = "t",
+  #xname = "RI",
+  yname = "RI",
+  tname = "t",
   splitvar = "ecosel",
   splitvar2 = "hsymmetry",
-  labs = c("Reproductive isolation", "Spatial isolation")
+  labs = c("Time", "Reproductive isolation")
 )
 
 plot_heatmap(
@@ -29,11 +29,11 @@ plot_heatmap(
   labs = c("Habitat symmetry", "Ecological selection"),
   xname = "hsymmetry",
   yname = "ecosel",
-  zname = "RI",
+  zname = "EI",
   tname = "t",
   summary = "value",
   aggregate = "average",
-  colors = c("black", "lightblue"),
-  collab = "Reproductive isolation"
+  colors = c("black", "lightgreen"),
+  collab = "Ecological isolation"
 )
 

@@ -9,7 +9,7 @@ rm(list = ls())
 library(egstools)
 library(ggplot2)
 
-mrep <- function(vecx, vecy) do.call(c, mapply(function(x, y) rep(x, y), vecx, vecy, SIMPLIFY = FALSE))
+
 
 sourcedir <- "/media/raphael/bigass/"
 add_dir <- "simulations_additive"
